@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxrwksdgqylu2"]
+
+[ext_resource type="Script" uid="uid://c335rpf3oxr0" path="res://sala.gd" id="1_bc0mr"]
+[ext_resource type="Texture2D" uid="uid://dforhwfoh04jp" path="res://SalaLongShot.png" id="2_bc0mr"]
+[ext_resource type="PackedScene" uid="uid://22lglqbjxems" path="res://Interface.tscn" id="3_tmsb0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t7d47"]
+size = Vector2(194.5, 387.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tmsb0"]
+size = Vector2(103, 77)
+
+[node name="Sala" type="Node2D"]
+script = ExtResource("1_bc0mr")
+
+[node name="Fundo" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo"]
+position = Vector2(578, 328)
+scale = Vector2(0.5232393, 0.5435355)
+texture = ExtResource("2_bc0mr")
+metadata/_edit_lock_ = true
+
+[node name="Porta" type="Area2D" parent="."]
+position = Vector2(-160, -221)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Porta"]
+position = Vector2(600.75, 499.25)
+shape = SubResource("RectangleShape2D_t7d47")
+
+[node name="Interface" parent="." instance=ExtResource("3_tmsb0")]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="GavetaInterativa" type="Area2D" parent="."]
+position = Vector2(55, 23)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GavetaInterativa"]
+position = Vector2(561, 245)
+scale = Vector2(1.0576074, 1)
+polygon = PackedVector2Array(-9.455261, 8, -8.509766, 207, 113.463684, 208, 112.51813, 189, 121.02789, 181, 121.97345, 154, 118.191345, 141, 123.8645, 135, 133.31982, 131, 173.0321, 132, 178.70526, 120, 173.9776, 58, 182.48737, 45, 196.67035, 41, 197.6159, -3, -7.564209, -4)
+
+[node name="Janela" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Janela"]
+position = Vector2(1039, 59)
+polygon = PackedVector2Array(-7, -1, -5, 302, 114, 326, 111, -57, 34, -58, -8, -22)
+
+[node name="Lareira" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lareira"]
+position = Vector2(110, 330)
+polygon = PackedVector2Array(-7, -1, -7, 245, 57, 250, 160, 193, 161, 163, 128, 124, 122, -11)
+
+[node name="Quadro1" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Quadro1"]
+position = Vector2(114, 23)
+polygon = PackedVector2Array(-7, -9, -11, 105, 83, 139, 84, 42)
+
+[node name="Quadro2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Quadro2"]
+position = Vector2(710.5, 172.5)
+shape = SubResource("RectangleShape2D_tmsb0")
+
+[connection signal="input_event" from="Porta" to="." method="_on_porta_input_event"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="input_event" from="GavetaInterativa" to="." method="_on_gaveta_interativa_input_event"]
+[connection signal="input_event" from="Janela" to="." method="_on_janela_input_event"]
+[connection signal="input_event" from="Lareira" to="." method="_on_lareira_input_event"]
+[connection signal="input_event" from="Quadro1" to="." method="_on_quadro_1_input_event"]
+[connection signal="input_event" from="Quadro2" to="." method="_on_quadro_2_input_event"]

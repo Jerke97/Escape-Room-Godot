@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://dm1oqpa34mgxj"]
+
+[ext_resource type="Script" uid="uid://diul5h52bi2rr" path="res://gaveta_close_up.gd" id="1_0gs4r"]
+[ext_resource type="Texture2D" uid="uid://dhitiuj1eot4m" path="res://GavetaCloseUp.png" id="2_kqv6q"]
+[ext_resource type="Texture2D" uid="uid://dg3g6meexj52p" path="res://SetaVoltar.png" id="3_e0vfk"]
+[ext_resource type="Texture2D" uid="uid://twlicbryaxb8" path="res://ChaveItemCanva.png" id="3_kqv6q"]
+[ext_resource type="PackedScene" uid="uid://22lglqbjxems" path="res://Interface.tscn" id="5_b48e1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixcov"]
+size = Vector2(65, 120)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ixcov"]
+radius = 14.858276
+height = 70.658844
+
+[node name="CenaGaveta" type="Node2D"]
+script = ExtResource("1_0gs4r")
+
+[node name="Fundo" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo"]
+position = Vector2(578.00006, 324)
+scale = Vector2(0.5209091, 0.54083335)
+texture = ExtResource("2_kqv6q")
+metadata/_edit_lock_ = true
+
+[node name="AreaVoltar" type="Area2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaVoltar"]
+position = Vector2(1115.5, 589)
+shape = SubResource("RectangleShape2D_ixcov")
+
+[node name="Sprite2D" type="Sprite2D" parent="AreaVoltar"]
+position = Vector2(1115, 587)
+rotation = 1.5703624
+scale = Vector2(0.3098158, 0.4935886)
+texture = ExtResource("3_e0vfk")
+
+[node name="Chave" type="Area2D" parent="."]
+position = Vector2(-2, -6)
+
+[node name="Sprite2D" type="Sprite2D" parent="Chave"]
+texture_filter = 1
+position = Vector2(376, 365.00003)
+rotation = 0.0013473034
+scale = Vector2(0.9823138, 1.2007887)
+texture = ExtResource("3_kqv6q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chave"]
+position = Vector2(378.00003, 364)
+rotation = 0.7700298
+shape = SubResource("CapsuleShape2D_ixcov")
+
+[node name="Interface" parent="." instance=ExtResource("5_b48e1")]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="input_event" from="AreaVoltar" to="." method="_on_area_voltar_input_event"]
+[connection signal="input_event" from="Chave" to="." method="_on_chave_input_event"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
